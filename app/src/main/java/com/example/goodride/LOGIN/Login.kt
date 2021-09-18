@@ -1,13 +1,13 @@
 package com.example.goodride.LOGIN
 
 import android.content.Intent
+import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
-import com.example.goodride.API.ServiceBuilder
+import androidx.core.app.ActivityCompat
+import com.example.goodride.API.RetrofitService
 import com.example.goodride.AppActivity
 import com.example.goodride.R
 import com.example.goodride.Registration.Registration
@@ -18,7 +18,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.w3c.dom.Text
 
 private lateinit var etPhonenumber: TextInputEditText
 private lateinit var etLoginPassword: TextInputEditText
@@ -35,13 +34,25 @@ class Login : AppCompatActivity(), View.OnClickListener {
         etLoginPassword = findViewById(R.id.etLoginPassword)
         btnLogin = findViewById(R.id.btnLogin)
         btnSignup = findViewById(R.id.btnSignup)
-
+      checkPermission()
         btnLogin.setOnClickListener(this)
 
         btnSignup.setOnClickListener(this)
 
     }
+    fun checkPermission(){
+        var permissions = arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION,android.Manifest.permission.WRITE_EXTERNAL_STORAGE,android.Manifest.permission.CAMERA,android.Manifest.permission.ACCESS_NETWORK_STATE)
 
+        for (permission in permissions)
+        {
+            if(ActivityCompat.checkSelfPermission(this,permission)!= PackageManager.PERMISSION_GRANTED)
+            {
+                ActivityCompat.requestPermissions(this, permissions,1)
+
+            }
+        }
+
+    }
     override fun onClick(v: View?) {
         when(v!!.id){
             R.id.btnLogin->{
@@ -66,8 +77,8 @@ class Login : AppCompatActivity(), View.OnClickListener {
             val response = repository.loginUser(Phonenumber, password)
             if(response.success==true){
 
-                ServiceBuilder.user = response.data
-                ServiceBuilder.token = "Bearer " + response.token
+                RetrofitService.user = response.data
+                RetrofitService.token = "Bearer " + response.token
                     withContext(Main){
                     val sharePref =
                             getSharedPreferences("MyPref", MODE_PRIVATE)

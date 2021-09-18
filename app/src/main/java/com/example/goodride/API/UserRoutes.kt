@@ -6,7 +6,7 @@ import com.example.goodride.model.RegisterModel
 import retrofit2.Response
 import retrofit2.http.*
 
-interface UserAPI {
+interface UserRoutes {
 
     @FormUrlEncoded
     @POST("/userLogin")

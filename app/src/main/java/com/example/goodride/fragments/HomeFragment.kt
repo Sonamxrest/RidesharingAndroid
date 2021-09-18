@@ -1,16 +1,13 @@
 package com.example.goodride.fragments
 
-import android.annotation.SuppressLint
 import android.app.ActionBar
 import android.app.Activity
 import android.app.Dialog
 import android.app.Service
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.location.Location
-import android.location.LocationListener
 import android.location.LocationManager
 import android.media.MediaPlayer
 import android.net.Uri
@@ -27,11 +24,10 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.airbnb.lottie.LottieAnimationView
 import com.directions.route.*
-import com.example.goodride.API.ServiceBuilder
+import com.example.goodride.API.RetrofitService
 import com.example.goodride.R
 import com.example.goodride.Repository.UserRepository
 import com.google.android.gms.common.ConnectionResult
@@ -54,7 +50,6 @@ import io.socket.client.Socket
 import io.socket.emitter.Emitter
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.Main
-import org.json.JSONArray
 import org.json.JSONObject
 import java.net.URISyntaxException
 import java.util.*
@@ -153,7 +148,7 @@ lottie= Lottiedialog.findViewById<LottieAnimationView>(R.id.loading)
         mMap.uiSettings.isZoomControlsEnabled =true
         mMap.setOnMyLocationChangeListener(this)
 
-        if(ServiceBuilder.user!!.UserType=="User"){
+        if(RetrofitService.user!!.UserType=="User"){
             mMap.setOnMapClickListener(this)
         }
 
@@ -164,9 +159,9 @@ lottie= Lottiedialog.findViewById<LottieAnimationView>(R.id.loading)
             var riderObj = json.getJSONObject("userDetails")
             var jsonObj = json.getJSONObject("newData")
             //id
-            if(ServiceBuilder.user!!.UserType=="Rider")
+            if(RetrofitService.user!!.UserType=="Rider")
             {
-                if(riderObj.getString("_id")==ServiceBuilder.user!!._id)
+                if(riderObj.getString("_id")==RetrofitService.user!!._id)
                 {
 
                     CoroutineScope(Dispatchers.IO).launch {
@@ -232,7 +227,7 @@ socket.on("accept"){
     Log.d("Hello",json.toString())
     var riderObj = json.getJSONObject("userDetails")
     var jsonObj = json.getJSONObject("newData")
-    if(jsonObj.getString("user_id")==ServiceBuilder!!.user!!._id)
+    if(jsonObj.getString("user_id")==RetrofitService!!.user!!._id)
     {
         CoroutineScope(Dispatchers.IO).launch {
     var response = UserRepository().getUser(riderObj.getString("_id"))
@@ -428,9 +423,9 @@ socket.on("accept"){
 
         requestBtn.setOnClickListener{
             var json= JSONObject()
-            json.put("user_id",ServiceBuilder.user!!._id.toString())
-            json.put("latitude", ServiceBuilder.user!!.Latitude.toString())
-            json.put("longitude", ServiceBuilder.user!!.Longitude.toString())
+            json.put("user_id",RetrofitService.user!!._id.toString())
+            json.put("latitude", RetrofitService.user!!.Latitude.toString())
+            json.put("longitude", RetrofitService.user!!.Longitude.toString())
             json.put("destinationLat", p0.latitude.toString())
             json.put("destinationLong", p0.longitude.toString())
             socket.emit("UserRequest", json.toString())
@@ -467,14 +462,14 @@ socket.on("accept"){
         json.put("Longitude", it.longitude)
         socket.emit("LatLang", json.toString())
         origin = LatLng(it.latitude, it.longitude)
-        ServiceBuilder.user!!.Latitude = origin.latitude.toString()
+        RetrofitService.user!!.Latitude = origin.latitude.toString()
 
-        ServiceBuilder.user!!.Longitude = origin.latitude.toString()
-        if(ServiceBuilder.user!!.UserType == "Rider"){
+        RetrofitService.user!!.Longitude = origin.latitude.toString()
+        if(RetrofitService.user!!.UserType == "Rider"){
             var json= JSONObject()
-            json.put("_id",ServiceBuilder.user!!._id.toString())
-            json.put("latitude", ServiceBuilder.user!!.Latitude.toString())
-            json.put("longitude", ServiceBuilder.user!!.Longitude.toString())
+            json.put("_id",RetrofitService.user!!._id.toString())
+            json.put("latitude", RetrofitService.user!!.Latitude.toString())
+            json.put("longitude", RetrofitService.user!!.Longitude.toString())
             socket.on("RiderLatLang", ){
               var jsons = it[0].toString()
 //                CoroutineScope(Dispatchers.IO).launch {

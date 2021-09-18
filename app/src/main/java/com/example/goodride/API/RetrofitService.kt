@@ -7,11 +7,11 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 
-object ServiceBuilder {
+object RetrofitService {
 
 
 
-    private const val BASE_URL = "http://192.168.0.109:2021"
+    private const val BASE_URL = "http://10.0.2.2:2021"
     var user: RegisterModel? = null
 
     var token: String? = null

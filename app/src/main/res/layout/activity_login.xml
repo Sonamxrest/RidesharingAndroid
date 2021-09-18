@@ -9,14 +9,15 @@
     android:background="@drawable/back"
     tools:context=".LOGIN.Login">
 
-    <ImageView
+    <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/loginImage"
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:gravity="center"
         android:layout_marginBottom="10dp"
-
-        android:src="@drawable/login"
+        app:lottie_rawRes="@raw/rider_found"
+        app:lottie_loop="true"
+        app:lottie_autoPlay="true"
         />
 
     <com.google.android.material.textview.MaterialTextView

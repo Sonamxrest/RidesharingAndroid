@@ -5,7 +5,7 @@ import org.json.JSONObject
 import retrofit2.Response
 import java.io.IOException
 
-abstract class TeamApiRequest {
+abstract class HandelApiRequest {
     suspend fun <T : Any> apiRequest(call: suspend () -> Response<T>): T {
         val response = call.invoke()
         print(response)

@@ -1,15 +1,14 @@
 package com.example.goodride.Repository
 
-import com.example.goodride.API.ServiceBuilder
-import com.example.goodride.API.TeamApiRequest
-import com.example.goodride.API.UserAPI
-import com.example.goodride.Registration.Registration
+import com.example.goodride.API.RetrofitService
+import com.example.goodride.API.HandelApiRequest
+import com.example.goodride.API.UserRoutes
 import com.example.goodride.Response.LoginResponse
 import com.example.goodride.Response.UserResponse
 import com.example.goodride.model.RegisterModel
 
-class UserRepository: TeamApiRequest() {
-    val myApi = ServiceBuilder.buildService(UserAPI::class.java)
+class UserRepository: HandelApiRequest() {
+    val myApi = RetrofitService.buildService(UserRoutes::class.java)
 
     suspend fun loginUser(PhoneNumber: String, Password: String):LoginResponse{
         return apiRequest {
