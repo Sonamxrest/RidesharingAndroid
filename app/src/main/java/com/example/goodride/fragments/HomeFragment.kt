@@ -107,7 +107,7 @@ lottie= Lottiedialog.findViewById<LottieAnimationView>(R.id.loading)
         }
 
         try {
-            socket = IO.socket("http://192.168.0.109:2021")
+            socket = IO.socket("http://10.0.2.2:2021")
             socket.connect()
 
             var json= JSONObject()
