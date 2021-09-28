@@ -6,35 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/btnSkip"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Skip>>"
-        android:backgroundTint="@color/white"
-        android:textColor= "@color/black"
-        android:layout_alignParentRight="true"/>
 
-
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/view_pager2"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_centerInParent="true"
-        android:layout_above="@+id/indicator"
-        />
-
-        <me.relex.circleindicator.CircleIndicator3
-            android:id="@+id/indicator"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_alignParentBottom="true"
-            android:background="#1E88E5"
-            >
-
-
-        </me.relex.circleindicator.CircleIndicator3>
-
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/fl"/>
 
 
 </RelativeLayout>

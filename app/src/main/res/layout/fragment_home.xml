@@ -13,9 +13,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:contentDescription="@string/app_name"
-        app:backgroundTint="#4CAF50"
-
-        app:srcCompat="@drawable/ic_pdf" />
+        app:backgroundTint="#283593"
+        app:srcCompat="@drawable/ic_search" />
 
     <fragment
         android:id="@+id/map"
