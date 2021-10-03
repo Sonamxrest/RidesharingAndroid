@@ -108,11 +108,11 @@ lottie= Lottiedialog.findViewById<LottieAnimationView>(R.id.loading)
 
         try {
 
-            socket = IO.socket("http://192.168.0.108:2021")
+            socket = IO.socket("http://192.168.137.211:2021")
             socket.connect()
 
             var json= JSONObject()
-            json.put("message", "Hello Nabin")
+            json.put("message", "Hello User")
             socket.emit("message", json.toString())
             socket.on("LatLang"){
                 print("${it[0].toString()}")

@@ -10,7 +10,7 @@ object RetrofitService {
 
 
 
-     val BASE_URL = "http://192.168.0.108:2021"
+     val BASE_URL = "http://192.168.137.211:2021"
     var user: RegisterModel? = null
 
     var token: String? = null
